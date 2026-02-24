@@ -62,7 +62,12 @@ function addResetListener() {
 }
 
 function resetClickHandler() {
-    console.log('reset!');
+    field = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ];
+    renderGrid(3);
 }
 
 // Ставит в случайное место -1
