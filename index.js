@@ -34,12 +34,16 @@ function renderGrid(dimension) {
 let currentPlayer = CROSS;
 
 function cellClickHandler(row, col) {
+    if (isGameOver) {
+        return;
+    }
     if (field[row][col] !== 0) {
         return;
     }
 
     renderSymbolInCell(currentPlayer, row, col);
     field[row][col] = currentPlayer;
+    checkWin(field);
     currentPlayer = currentPlayer === CROSS ? ZERO : CROSS;
 }
 
@@ -68,6 +72,8 @@ function resetClickHandler() {
         [0, 0, 0],
         [0, 0, 0]
     ];
+    isGameOver = false;
+    currentPlayer = CROSS;
     renderGrid(3);
 }
 
@@ -114,16 +120,16 @@ function checkWin(field) {
 
     if (winner) {
         isGameOver = true;
-        alert('Победил игрок ' + winner);
+        alert('Победил ' + winner);
         winCoords.forEach(([r, c]) => {
-            findCell(r, c).style.backgroundColor = 'lightgreen';
+            findCell(r, c).style.color = 'red';
         });
         return winner;
     }
 
     if (field.every(row => row.every(cell => cell !== 0))) {
         isGameOver = true;
-        alert('Ничья!');
+        alert('Победила дружба');
         return 'draw';
     }
 
