@@ -29,6 +29,10 @@ function renderGrid(dimension) {
 function cellClickHandler(row, col) {
     // Пиши код тут
     console.log(`Clicked on cell: ${row}, ${col}`);
+
+    if (findCell(row, col).textContent !== EMPTY) {
+        return;
+    }
     renderSymbolInCell(ZERO, row, col);
     renderSymbolInCell(CROSS, row, col);
 
