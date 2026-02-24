@@ -31,25 +31,18 @@ function renderGrid(dimension) {
     }
 }
 
+let currentPlayer = CROSS;
+
 function cellClickHandler(row, col) {
-    // Пиши код тут
-    console.log(`Clicked on cell: ${row}, ${col}`);
-
-    if (field[row][col] != 0)
-        return;
-    field[row][col] = 1;
-
-    if (findCell(row, col).textContent !== EMPTY) {
+    if (field[row][col] !== 0) {
         return;
     }
-    renderSymbolInCell(ZERO, row, col);
-    renderSymbolInCell(CROSS, row, col);
 
-
-    /* Пользоваться методом для размещения символа в клетке так:
-        renderSymbolInCell(ZERO, row, col);
-     */
+    renderSymbolInCell(currentPlayer, row, col);
+    field[row][col] = currentPlayer;
+    currentPlayer = currentPlayer === CROSS ? ZERO : CROSS;
 }
+
 
 function renderSymbolInCell(symbol, row, col, color = '#333') {
     const targetCell = findCell(row, col);
