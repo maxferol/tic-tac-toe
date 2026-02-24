@@ -61,6 +61,7 @@ function addResetListener() {
     resetButton.addEventListener('click', resetClickHandler);
 }
 
+// task 8
 function resetClickHandler() {
     field = [
         [0, 0, 0],
@@ -70,7 +71,7 @@ function resetClickHandler() {
     renderGrid(3);
 }
 
-// Ставит в случайное место -1
+// Ставит в случайное место -1 //task 10
 function crossZeroRobot(field) {
     let row = Math.floor(Math.random() * field.length);
     let col = Math.floor(Math.random() * field.length);
@@ -81,6 +82,56 @@ function crossZeroRobot(field) {
     field[row][col] = -1;
     renderSymbolInCell(ZERO, row, col);
 }
+
+
+//task 4 - 5
+let isGameOver = false;
+
+function checkWin() {
+    const size = field.length;
+    let winner = null;
+    let winCoords = [];
+
+    for (let i = 0; i < size; i++) {
+        if (field[i][0] !== 0 && field[i].every(val => val === field[i][0])) {
+            winner = field[i][0];
+            winCoords = field[i].map((_, j) => [i, j]);
+        }
+        if (field[0][i] !== 0 && field.every(row => row[i] === field[0][i])) {
+            winner = field[0][i];
+            winCoords = field.map((_, j) => [j, i]);
+        }
+    }
+
+    if (field[0][0] !== 0 && field.every((row, i) => row[i] === field[0][0])) {
+        winner = field[0][0];
+        winCoords = field.map((_, i) => [i, i]);
+    }
+    if (field[0][size - 1] !== 0 && field.every((row, i) => row[size - 1 - i] === field[0][size - 1])) {
+        winner = field[0][size - 1];
+        winCoords = field.map((_, i) => [i, size - 1 - i]);
+    }
+
+    if (winner) {
+        isGameOver = true;
+        alert('Победил игрок ' + winner);
+        winCoords.forEach(([r, c]) => {
+            findCell(r, c).style.backgroundColor = 'lightgreen';
+        });
+        return winner;
+    }
+
+    if (field.every(row => row.every(cell => cell !== 0))) {
+        isGameOver = true;
+        alert('Ничья!');
+        return 'draw';
+    }
+
+    return null;
+}
+
+
+
 
 
 /* Test Function */
