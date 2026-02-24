@@ -87,7 +87,7 @@ function crossZeroRobot(field) {
 //task 4 - 5
 let isGameOver = false;
 
-function checkWin() {
+function checkWin(field) {
     const size = field.length;
     let winner = null;
     let winCoords = [];
